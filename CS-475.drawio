@@ -1,0 +1,76 @@
+<mxfile host="Electron" modified="2024-05-04T14:23:40.704Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="uIq0wpn6GZYVqxtt0mBA" version="22.1.21" type="device">
+  <diagram name="Page-1" id="NMl1uVrD2PfalFWZTxot">
+    <mxGraphModel dx="1290" dy="629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-1" target="2AugM1hEaT7ZYwpGV3BL-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-1" target="2AugM1hEaT7ZYwpGV3BL-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-1" value="Open 2 e-mail accounts that should belong to the same person with some subtle differences" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="40" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-8" target="2AugM1hEaT7ZYwpGV3BL-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-8" value="Open an Instagram account with the first email address and use a name that is misspelled." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="130" y="120" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-9" target="2AugM1hEaT7ZYwpGV3BL-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-9" value="Open a Facebook account with the second email address and use the correct name." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="120" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-12" target="2AugM1hEaT7ZYwpGV3BL-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-12" value="Set a profile picture which is a close-shot" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="130" y="200" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-14" target="2AugM1hEaT7ZYwpGV3BL-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-14" value="Set a profile picture taken from a distance" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="200" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2AugM1hEaT7ZYwpGV3BL-16" target="zEG45cc-kIq76v6AV9vv-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-16" value="Write a bio field with a lot of information" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="130" y="280" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2AugM1hEaT7ZYwpGV3BL-18" target="zEG45cc-kIq76v6AV9vv-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2AugM1hEaT7ZYwpGV3BL-18" value="Write an about part with less information." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="450" y="280" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-1" target="zEG45cc-kIq76v6AV9vv-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-1" value="Get this info through Instagram API and create a FOAF profile" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="360" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-3" target="zEG45cc-kIq76v6AV9vv-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-3" value="Get this info through Facebook API and create a FOAF profile" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="360" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-8" target="zEG45cc-kIq76v6AV9vv-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-8" value="Write a Python script to compare the 2 FOAF profiles and get similarity scores" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="440" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-11" value="Write a Python script to compare the 2 FOAF profiles and get similarity scores" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="520" width="260" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
