@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-05-04T14:23:40.704Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="uIq0wpn6GZYVqxtt0mBA" version="22.1.21" type="device">
+<mxfile host="Electron" modified="2024-05-06T19:44:40.688Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="bHxsfX27z5MC3zGUCIsK" version="22.1.21" type="device">
   <diagram name="Page-1" id="NMl1uVrD2PfalFWZTxot">
-    <mxGraphModel dx="1290" dy="629" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="992" dy="484" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -37,38 +37,50 @@
         <mxCell id="2AugM1hEaT7ZYwpGV3BL-14" value="Set a profile picture taken from a distance" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="450" y="200" width="260" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2AugM1hEaT7ZYwpGV3BL-16" target="zEG45cc-kIq76v6AV9vv-1">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-16" target="zEG45cc-kIq76v6AV9vv-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="2AugM1hEaT7ZYwpGV3BL-16" value="Write a bio field with a lot of information" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="130" y="280" width="260" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2AugM1hEaT7ZYwpGV3BL-18" target="zEG45cc-kIq76v6AV9vv-3">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2AugM1hEaT7ZYwpGV3BL-18" target="zEG45cc-kIq76v6AV9vv-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="2AugM1hEaT7ZYwpGV3BL-18" value="Write an about part with less information." style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="450" y="280" width="260" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-1" target="zEG45cc-kIq76v6AV9vv-8">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="zEG45cc-kIq76v6AV9vv-1" target="zEG45cc-kIq76v6AV9vv-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-1" value="Get this info through Instagram API and create a FOAF profile" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-1" value="Get this info through web scraping and create a FOAF profile" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="130" y="360" width="260" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-3" target="zEG45cc-kIq76v6AV9vv-8">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="zEG45cc-kIq76v6AV9vv-3" target="zEG45cc-kIq76v6AV9vv-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-3" value="Get this info through Facebook API and create a FOAF profile" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-3" value="Get this info through web scraping and create a FOAF profile" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="450" y="360" width="260" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-8" target="zEG45cc-kIq76v6AV9vv-11">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="zEG45cc-kIq76v6AV9vv-8" target="zEG45cc-kIq76v6AV9vv-11" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-8" value="Write a Python script to compare the 2 FOAF profiles and get similarity scores" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="zEG45cc-kIq76v6AV9vv-8" value="Write a Python script to compare the 2 FOAF profiles and get similarity scores" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="290" y="440" width="260" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zEG45cc-kIq76v6AV9vv-11" value="Write a Python script to compare the 2 FOAF profiles and get similarity scores" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="290" y="520" width="260" height="40" as="geometry" />
+        <mxCell id="oswk5yh6sjBV8MimvbkO-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="zEG45cc-kIq76v6AV9vv-11" target="oswk5yh6sjBV8MimvbkO-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zEG45cc-kIq76v6AV9vv-11" value="Apply filters to reduce linkability and protect sensitive information and update the profiles accordingly" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="270" y="520" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oswk5yh6sjBV8MimvbkO-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="oswk5yh6sjBV8MimvbkO-1" target="oswk5yh6sjBV8MimvbkO-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oswk5yh6sjBV8MimvbkO-1" value="Compare the 2 updated FOAF profiles and get the similarity score again" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="600" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="oswk5yh6sjBV8MimvbkO-3" value="Evaluate the results and the effectiveness of the filtering mechanism" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="680" width="260" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
