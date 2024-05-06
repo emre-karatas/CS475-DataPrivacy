@@ -1,2 +1,4 @@
 /env
 .env
+__pycache__
+__pycache__/Person.cpython-312.pyc

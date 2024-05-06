@@ -8,7 +8,7 @@ class Person:
         self.following = []
 
     def __str__(self):
-        return f"Name: {self.name}, Username: {self.username}, Profile Picture URL: {self.profile_picture_url}, Bio: {self.bio}"
+        return f"Name: {self.name}\n Username: {self.username}\n Profile Picture URL: {self.profile_picture_url}\n Bio: {self.bio}"
 
     def add_follower(self, follower):
         self.followers.append(follower)
