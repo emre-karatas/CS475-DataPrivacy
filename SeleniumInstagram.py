@@ -3,20 +3,6 @@ from Person import Person
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
-import time
-import os
-
-# Initialize WebDriver
-driver = webdriver.Chrome()
-
-load_dotenv()
-
-username_login = os.getenv("INSTAGRAM_USERNAME")
-password_login = os.getenv("INSTAGRAM_PASSWORD")
-
-# Perform login
-driver.get("https://www.instagram.com/accounts/login/")
 
 def login(driver, username, password):
     try:
@@ -49,6 +35,8 @@ def scrapePerson(username, driver):
     profile_picture_url = None
     name = None
     bio = None
+    followers_count = -1
+    following_count = -1
 
     try:
         # Wait until the profile name element is visible
@@ -107,23 +95,20 @@ def scrapePerson(username, driver):
     except Exception as e:
         print(f"Error while getting profile picture for non profile picture: {e}")
 
+    try:
+        # Wait until the followers button is visible
+        followers_button = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//button[contains(@text, \"takipçi\")]"))
+        )
+
+        # followers_count = followers_button.text
+        print(followers_button.text)
+    except Exception as e:
+        print(f"Error while getting followers button: {e}")
+
     """ print(f"Username: {username}")
     print(f"Name: {name}")
     print(f"Profile Picture URL: {profile_picture_url}")
     print(f"Bio: {bio}") """
 
-    return Person(name, username, profile_picture_url, bio)
-
-listOfUsers = ["h.yarkinkurt", "_denizgokcen_", "burcukaplan__", "emre.karaatas", "esattokk", "saglamtugrull"]
-profiles = []
-
-login(driver, username_login, password_login)
-
-for person in listOfUsers:
-    profiles.append(scrapePerson(person, driver))
-    time.sleep(3)
-
-for profile in profiles:
-    print(profile)
-# Close the WebDriver
-driver.quit()
+    return Person(name, username, profile_picture_url, bio, followers_count, following_count)
