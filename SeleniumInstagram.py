@@ -3,12 +3,43 @@ from Person import Person
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from dotenv import load_dotenv
 import time
+import os
 
 # Initialize WebDriver
 driver = webdriver.Chrome()
-driver.get("https.instagram.com")
-def scrapePerson(username):
+
+load_dotenv()
+
+username_login = os.getenv("INSTAGRAM_USERNAME")
+password_login = os.getenv("INSTAGRAM_PASSWORD")
+
+# Perform login
+driver.get("https://www.instagram.com/accounts/login/")
+
+def login(driver, username, password):
+    try:
+        # Wait for the login form elements to be visible
+        username_field = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.NAME, "username"))
+        )
+        password_field = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.NAME, "password"))
+        )
+
+        username_field.send_keys(username)
+        password_field.send_keys(password)
+
+        # Locate and click the login button
+        login_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))
+        )
+        login_button.click()
+    except Exception as e:
+        print(f"Error trying to login: {e}")
+
+def scrapePerson(username, driver):
     print(f"running for: {username}")
     # Navigate to Instagram profile
     profile_url = f"https://www.instagram.com/{username}/"
@@ -86,8 +117,10 @@ def scrapePerson(username):
 listOfUsers = ["h.yarkinkurt", "_denizgokcen_", "burcukaplan__", "emre.karaatas", "esattokk", "saglamtugrull"]
 profiles = []
 
+login(driver, username_login, password_login)
+
 for person in listOfUsers:
-    profiles.append(scrapePerson(person))
+    profiles.append(scrapePerson(person, driver))
     time.sleep(3)
 
 for profile in profiles:
