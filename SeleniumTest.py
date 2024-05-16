@@ -1,18 +1,20 @@
 from SeleniumInstagram import login, scrapePerson
 from selenium import webdriver
 from config import Config
+from selenium.webdriver.chrome.options import Options
 import time
 
-listOfUsers = ["h.yarkinkurt", "_denizgokcen_"]
+listOfUsers = ["esattokk", "burcukaplan__"]
 profiles = []
 
 config = Config()
 username_login = config.get_insta_username()
 password_login = config.get_insta_password()
-print(username_login)
 
 # Initialize WebDriver
-driver = webdriver.Chrome()
+options = Options()
+options.add_argument("--lang=en")
+driver = webdriver.Chrome(options=options)
 
 # Perform login
 driver.get("https://www.instagram.com/accounts/login/")

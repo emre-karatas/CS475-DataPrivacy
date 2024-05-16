@@ -10,7 +10,15 @@ class Person:
         self.following_count = following_count
 
     def __str__(self):
-        return f"Name: {self.name}\n Username: {self.username}\n Profile Picture URL: {self.profile_picture_url}\n Bio: {self.bio}"
+        return f"""Name: {self.name}
+Username: {self.username}
+Profile Picture URL: {self.profile_picture_url}
+Bio: {self.bio}
+Followers Count: {self.followers_count}
+Followers: {self.followers}
+Following Count: {self.following_count}
+Following: {self.following}
+"""
 
     def add_follower(self, follower):
         self.followers.append(follower)
