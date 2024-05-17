@@ -111,3 +111,26 @@ def scrapeFollowers(file_path):
         print(f"Error scraping followers: {e}")
         return followers
     
+def scrapeFollowings(file_path):
+    # Init an array of followings
+    followings = []
+    try:
+        # Scrape the followings html page
+        with open(file_path, "r", encoding="utf-8") as file:
+            html_code = file.read()
+        
+        # Parse the HTML code using BeautifulSoup
+        soup = BeautifulSoup(html_code, "html.parser")
+
+        # Find the div element that contains the followings
+        followings_section = soup.find_all('div', class_='x1iyjqo2 x1pi30zi')
+
+        for following in followings_section:
+            # Extract the username
+            username = following.a.get('href').split("/")[-1]
+            followings.append(username)
+
+        return followings
+    except Exception as e:
+        print(f"Error scraping followings: {e}")
+        return followings

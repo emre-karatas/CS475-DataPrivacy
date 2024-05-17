@@ -1,4 +1,4 @@
-from SeleniumInstagram import login, scrapePerson
+from SeleniumInstagram import login_instagram, login_facebook, scrapePersonFromInstagram
 from selenium import webdriver
 from config import Config
 from selenium.webdriver.chrome.options import Options
@@ -19,10 +19,10 @@ driver = webdriver.Chrome(options=options)
 # Perform login
 driver.get("https://www.instagram.com/accounts/login/")
 
-login(driver, username_login, password_login)
+login_instagram(driver, username_login, password_login)
 
 for person in listOfUsers:
-    profiles.append(scrapePerson(person, driver))
+    profiles.append(scrapePersonFromInstagram(person, driver))
     time.sleep(3)
 
 for profile in profiles:

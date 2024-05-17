@@ -1,12 +1,10 @@
-from selenium import webdriver
 from Person import Person
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from config import Config
 import time
 
-def login(driver, username, password):
+def login_instagram(driver, username, password):
     try:
         # Wait for the login form elements to be visible
         username_field = WebDriverWait(driver, 10).until(
@@ -26,9 +24,10 @@ def login(driver, username, password):
         login_button.click()
         time.sleep(4)
     except Exception as e:
-        print(f"Error trying to login: {e}")
+        print(f"Error trying to login to Instagram: {e}")
 
-def scrapePerson(username, driver):
+
+def scrapePersonFromInstagram(username, driver):
     print(f"running for: {username}")
     # Navigate to Instagram profile
     profile_url = f"https://www.instagram.com/{username}"
