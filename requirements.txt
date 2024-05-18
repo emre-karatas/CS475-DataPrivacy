@@ -1,3 +1,13 @@
 requests
 selenium
 python-dotenv
+beautifulsoup4
+jellyfish
+python-Levenshtein
+scikit-learn
+Pillow
+imagehash
+requests
+wikipedia
+tabulate
+pandas

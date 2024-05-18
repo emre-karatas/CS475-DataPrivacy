@@ -1,24 +1,10 @@
-from selenium import webdriver
 from Person import Person
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
 import time
-import os
 
-# Initialize WebDriver
-driver = webdriver.Chrome()
-
-load_dotenv()
-
-username_login = os.getenv("INSTAGRAM_USERNAME")
-password_login = os.getenv("INSTAGRAM_PASSWORD")
-
-# Perform login
-driver.get("https://www.instagram.com/accounts/login/")
-
-def login(driver, username, password):
+def login_instagram(driver, username, password):
     try:
         # Wait for the login form elements to be visible
         username_field = WebDriverWait(driver, 10).until(
@@ -36,94 +22,82 @@ def login(driver, username, password):
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit']"))
         )
         login_button.click()
+        time.sleep(4)
     except Exception as e:
-        print(f"Error trying to login: {e}")
+        print(f"Error trying to login to Instagram: {e}")
 
-def scrapePerson(username, driver):
+
+def scrapePersonFromInstagram(username, driver):
     print(f"running for: {username}")
     # Navigate to Instagram profile
-    profile_url = f"https://www.instagram.com/{username}/"
+    profile_url = f"https://www.instagram.com/{username}"
     driver.get(profile_url)
 
-    username = None
-    profile_picture_url = None
+    profile_picture_url = ""
     name = None
     bio = None
+    followers_count = -1
+    following_count = -1
 
+    # USERNAME
     try:
-        # Wait until the profile name element is visible
+        # PROFILE PAGE
+        # Wait until the username element is visible
         username_element = WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, "//h2[contains(@class, \"x1lliihq\")]"))
         )
+        # Get the entire HTML source code of the page
+        html_code = driver.page_source
 
-        # Extract profile information
-        username = username_element.text
-    except Exception as e:
-        print(f"Error while getting name: {e}")
+        # Write the HTML code to a file
+        file_path = f"pages/{username}.html"
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(html_code)
 
-    try:
-        # Wait until the profile name element is visible
-        next_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//span[contains(@class, \"x1lliihq x1plvlek\")]"))
+        """ # FOLLOWERS PAGE
+        # Get the entire HTML source code of the followers page
+        driver.get(f"{profile_url}/followers")
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//div[contains(@role, 'dialog')]"))
         )
+        time.sleep(3)
+        followers_html_code = driver.page_source
 
-        # Extract profile information
-        name = next_element.text
-    except Exception as e:
-        print(f"Error while getting name: {e}")
+        # Write the HTML code to a file
+        followers_file_path = f"pages/{username}_followers.html"
+        with open(followers_file_path, "w", encoding="utf-8") as file:
+            file.write(followers_html_code) """
 
-    try:
-        # Wait until the bio element is visible
-        bio_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//h1[contains(@class, \"_ap3a\")]"))
-        )
-
-        # Extract bio text
-        bio = bio_element.text
-    except Exception as e:
-        print(f"Error while getting bio: {e}")
-
-    try:
-        # Wait until the profile picture element is visible
-        profile_picture_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//img[contains(@alt, \"Profil\")]"))
-            #EC.visibility_of_element_located((By.XPATH, "//img[contains(@class, \"xpdipgo\")]"))
-        )
-
-        # Extract profile picture URL
-        profile_picture_url = profile_picture_element.get_attribute("src")
-    except Exception as e:
-        print(f"Error while getting profile picture: {e}")
-
-    try:
-        if profile_picture_url == None:
-                profile_picture_element = WebDriverWait(driver, 10).until(
-                #EC.visibility_of_element_located((By.XPATH, "//img[contains(@alt, \"Profil\")]"))
-                EC.visibility_of_element_located((By.XPATH, "//img[contains(@class, \"xpdipgo\")]"))
+        # FOLLOWING PAGE
+        # Get the entire HTML source code of the following page
+        try:
+            time.sleep(3)
+            driver.get(f"{profile_url}/following")
+            href_following = f'/{username}/following/'
+            print(href_following)
+            following_button = WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, f"//a[@href='{href_following}']"))
             )
             
-        # Extract profile picture URL
-        profile_picture_url = profile_picture_element.get_attribute("src")
+            print("button: ", following_button.text)
+
+            following_button.click()
+
+            WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, "//div[contains(@role, 'dialog')]"))
+            )
+            time.sleep(3)
+            following_html_code = driver.page_source
+
+            # Write the HTML code to a file
+            following_file_path = f"pages/{username}_following.html"
+            with open(following_file_path, "w", encoding="utf-8") as file:
+                file.write(following_html_code)
+        except Exception as e:
+            print(f"Error while getting following page: {e}")
+
     except Exception as e:
-        print(f"Error while getting profile picture for non profile picture: {e}")
+        print(f"Error while scraping '{username}' : {e}")
 
-    """ print(f"Username: {username}")
-    print(f"Name: {name}")
-    print(f"Profile Picture URL: {profile_picture_url}")
-    print(f"Bio: {bio}") """
-
-    return Person(name, username, profile_picture_url, bio)
-
-listOfUsers = ["h.yarkinkurt", "_denizgokcen_", "burcukaplan__", "emre.karaatas", "esattokk", "saglamtugrull"]
-profiles = []
-
-login(driver, username_login, password_login)
-
-for person in listOfUsers:
-    profiles.append(scrapePerson(person, driver))
-    time.sleep(3)
-
-for profile in profiles:
-    print(profile)
-# Close the WebDriver
-driver.quit()
+    finally:
+        return Person(name, username, profile_picture_url, bio, followers_count, following_count, "instagram")
