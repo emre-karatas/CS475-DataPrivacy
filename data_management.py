@@ -52,9 +52,9 @@ def main():
     :return: None
     """
     user_data = {
-        "name": "John Doe",
-        "age": 30,
-        "email": "john.doe@example.com",
+        "name": "Emre Karataş",
+        "age": 22,
+        "email": "emre.karatas@ug.bilkent.edu.tr",
         "salary": 50000
     }
 

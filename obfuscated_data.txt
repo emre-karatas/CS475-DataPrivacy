@@ -1,0 +1,5 @@
+location: https://maps.google.com/?q=39.919955277737145,32.862215067546614
+gender: Unspecified
+profile_photo: profile_scrambled_permutation.jpg
+freetext: This text has been neutralized for privacy.
+age: 20.0027683499362
