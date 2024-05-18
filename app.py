@@ -1,13 +1,15 @@
 from SeleniumInstagram import login_instagram, scrapePersonFromInstagram
 from SeleniumFacebook import login_facebook, scrapePersonFromFacebook
 from selenium import webdriver
-from SimilarityComparisons import jaro_winkler, tfidf_cosine_similarity, image_similarity, combined_similarity
+from SimilarityComparisons import jaro_winkler, tfidf_cosine_similarity, image_similarity, combined_similarity, edit_distance, esa_similarity
 from config import Config
 from Person import Person
 from selenium.webdriver.chrome.options import Options
 from BeautifulSoupScraper import scrape_profile_page, scrapeFollowers, scrapeFollowings
 from typing import List, Dict
+from tabulate import tabulate
 import time
+import pandas as pd
 
 def main():
     # SCRAPE INSTAGRAM PROFILE
@@ -27,7 +29,9 @@ def main():
         print(p)
 
 
-    compare_accounts(person_insta, person_fb)
+    result = compare_accounts(person_insta, person_fb)
+    print("\n")
+    print(result)
 
 def scrape_from_instagram():
     # SCRAPE INSTAGRAM PROFILE
@@ -118,35 +122,68 @@ def scrape_from_facebook():
 
     return person
 
-def compare_persons(person1, person2, weights):
-    name_similarity = jaro_winkler(person1.name, person2.name)
-    username_similarity = tfidf_cosine_similarity(person1.username, person2.username)
-    bio_similarity = tfidf_cosine_similarity(person1.bio, person2.bio)
-    picture_similarity = image_similarity(person1.profile_picture_path, person2.profile_picture_path)
+# Comparison Functions
+def compare_persons(person1: Person, person2: Person, weights: Dict[str, float]):
+    name_similarity = tfidf_cosine_similarity(person1.name, person2.name)
+    username_similarity = jaro_winkler(person1.username, person2.username)
+    bio_similarity = esa_similarity(person1.bio, person2.bio)
+    picture_similarity = edit_distance(person1.profile_picture_url, person2.profile_picture_url)
 
-    return name_similarity, username_similarity, bio_similarity, picture_similarity
+    return {
+        'name_similarity': name_similarity,
+        'username_similarity': username_similarity,
+        'bio_similarity': bio_similarity,
+        'picture_similarity': picture_similarity
+    }
 
 def compare_followings(following1: List[Person], following2: List[Person], weights: Dict[str, float]):
     if not following1 or not following2:
-        return 0.0
+        return {
+            'following_similarity': 0.0,
+            'details': []
+        }
     
     total_similarity = 0.0
     comparisons = 0
+    details = []
     
     for person1 in following1:
         best_similarity = 0.0
+        best_match_details = None
         for person2 in following2:
-            name_sim, username_sim, bio_sim, pic_sim = compare_persons(person1, person2, weights)
-            similarity = combined_similarity(name_sim, username_sim, bio_sim, pic_sim, 0, weights)  # Following similarity is 0 in this case
+            person_similarities = compare_persons(person1, person2, weights)
+            similarity = combined_similarity(
+                person_similarities['name_similarity'],
+                person_similarities['username_similarity'],
+                person_similarities['bio_similarity'],
+                person_similarities['picture_similarity'],
+                0, weights)  # Following similarity is 0 in this case
+
             if similarity > best_similarity:
                 best_similarity = similarity
+                best_match_details = {
+                    'match_with': person2.username,
+                    'similarities': person_similarities,
+                    'combined_similarity': similarity
+                }
+
         total_similarity += best_similarity
         comparisons += 1
+        if best_match_details:
+            details.append({
+                'person': person1.username,
+                'best_match': best_match_details
+            })
 
-    return total_similarity / comparisons if comparisons > 0 else 0.0
+    average_similarity = total_similarity / comparisons if comparisons > 0 else 0.0
 
-def compare_accounts(person_insta, person_fb):
-    # Define weights for each similarity measure
+    return {
+        'following_similarity': average_similarity,
+        'details': details
+    }
+
+def compare_accounts(person_insta, person_fb, output_file='account_comparison.xlsx'):
+    # Define weights for each similarity measure based on the given table
     weights = {
         'username': 0.30,
         'following': 0.30,
@@ -155,19 +192,75 @@ def compare_accounts(person_insta, person_fb):
         'bio': 0.10
     }
 
-    name_similarity, username_similarity, bio_similarity, picture_similarity = compare_persons(person_insta, person_fb, weights)
+    account_similarities = compare_persons(person_insta, person_fb, weights)
     
-    following_similarity = compare_followings(person_insta.following, person_fb.following, weights)
+    following_comparison = compare_followings(person_insta.following, person_fb.following, weights)
     
-    combined_score = combined_similarity(name_similarity, username_similarity, bio_similarity, picture_similarity, following_similarity, weights)
+    combined_score = combined_similarity(
+        account_similarities['name_similarity'],
+        account_similarities['username_similarity'],
+        account_similarities['bio_similarity'],
+        account_similarities['picture_similarity'],
+        following_comparison['following_similarity'],
+        weights
+    )
 
-    return combined_score
+    # Prepare data for the main table
+    main_table = [
+        ["Attribute", "Instagram", "Facebook", "Similarity Score"],
+        ["Name", person_insta.name, person_fb.name, account_similarities['name_similarity']],
+        ["Username", person_insta.username, person_fb.username, account_similarities['username_similarity']],
+        ["Bio", person_insta.bio, person_fb.bio, account_similarities['bio_similarity']],
+        ["Profile Picture", person_insta.profile_picture_url, person_fb.profile_picture_url, account_similarities['picture_similarity']],
+        ["Following Similarity", "-", "-", following_comparison['following_similarity']],
+        ["Total Combined Score", "-", "-", combined_score]
+    ]
+    
+    # Prepare data for the following comparison details table
+    details_table = []
+    for detail in following_comparison['details']:
+        best_match = detail['best_match']
+        similarities = best_match['similarities']
+        details_table.append([
+            detail['person'],
+            best_match['match_with'],
+            similarities['name_similarity'],
+            similarities['username_similarity'],
+            similarities['bio_similarity'],
+            similarities['picture_similarity'],
+            best_match['combined_similarity']
+        ])
 
-person_insta = Person("Burcu Kaplan", "burcukaplan__", "https://scontent.cdninstagram.com/v/t51.2885-19/376243407_264333966526920_2972655541866789887_n.jpg?stp=dst-jpg_s150x150&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=7YaNmMbX50QQ7kNvgGvWRHX&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYAcpTEmCYdQdj1C21LpfqLZZY3p-LxIEOQDbVQ7JDXvvg&oe=664EEBAA&_nc_sid=10d13b", "⋆ Bilkent University | CS ⋆ ✈️", 1063, 1008, "instagram")
+    # Create a Pandas Excel writer using XlsxWriter as the engine
+    writer = pd.ExcelWriter(output_file, engine='xlsxwriter')
+
+    # Convert the main table to a DataFrame and write to Excel
+    df_main = pd.DataFrame(main_table[1:], columns=main_table[0])
+    df_main.to_excel(writer, sheet_name='Account Comparison', index=False)
+
+    # Convert the details table to a DataFrame and write to Excel
+    details_table_columns = ["Instagram Following", "Best Match", "Name Sim", "Username Sim", "Bio Sim", "Picture Sim", "Combined Sim"]
+    df_details = pd.DataFrame(details_table, columns=details_table_columns)
+    df_details.to_excel(writer, sheet_name='Following Comparison Details', index=False)
+
+    # Save the Excel file
+    writer.close()
+
+    print(f"Comparison results have been written to {output_file}")
+
+    result = {
+        'account_similarities': account_similarities,
+        'following_comparison': following_comparison,
+        'total_combined_score': combined_score
+    }
+    
+    return result
+
+""" person_insta = Person("Burcu Kaplan", "burcukaplan__", "https://scontent.cdninstagram.com/v/t51.2885-19/376243407_264333966526920_2972655541866789887_n.jpg?stp=dst-jpg_s150x150&_nc_ht=scontent.cdninstagram.com&_nc_cat=100&_nc_ohc=7YaNmMbX50QQ7kNvgGvWRHX&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYAcpTEmCYdQdj1C21LpfqLZZY3p-LxIEOQDbVQ7JDXvvg&oe=664EEBAA&_nc_sid=10d13b", "⋆ Bilkent University | CS ⋆ ✈️", 1063, 1008, "instagram")
 person_fb = Person("Burcu Kaplan", "burcutitizkaplan", "https://scontent.fasr2-1.fna.fbcdn.net/v/t39.30808-1/375596737_10227499278220272_9017250208179668883_n.jpg?stp=dst-jpg_p200x200&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=nH5_SBlYxFcQ7kNvgFydrOY&_nc_ht=scontent.fasr2-1.fna&oh=00_AYDMPOw8elVkU7qFIvaviw9L093kDpmzDybdfDoJvPzqzw&oe=664ED4A9", "", -1, -1, "facebook")
 
 score = compare_accounts(person_insta, person_fb)
-print(score)
+print(score)  """
 
-""" if __name__ == "__main__":
-    main() """
+if __name__ == "__main__":
+    main()

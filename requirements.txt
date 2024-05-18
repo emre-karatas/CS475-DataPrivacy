@@ -8,3 +8,6 @@ scikit-learn
 Pillow
 imagehash
 requests
+wikipedia
+tabulate
+pandas
