@@ -27,13 +27,13 @@ def login_facebook(driver, username, password):
         print(f"Error trying to login to Facebook: {e}")
 
 
-def scrapePersonFromFacebook(baseUser, driver):
+def scrapePersonFromFacebook(baseUser, driver, base):
     # Navigate to Facebook profile
     profile_url = f"https://www.facebook.com/{baseUser}"
     driver.get(profile_url)
 
     username = baseUser
-    profile_picture_url = None
+    profile_picture_url = ""
     name = None
     bio = None
     followers_count = -1
@@ -54,37 +54,21 @@ def scrapePersonFromFacebook(baseUser, driver):
         print(f"Error while getting name: {e}")
     
     # PROFILE PICTURE
-    try:
-        # Wait until the profile picture element is visible
-        profile_picture_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, '//div[@aria-label="Profile picture actions"]'))
-        )
+    if base == True:
+        try:
+            # Wait until the profile picture element is visible
+            profile_picture_element = WebDriverWait(driver, 5).until(
+                EC.visibility_of_element_located((By.XPATH, '//div[@aria-label="Profile picture actions"]'))
+            )
 
-        # Find the image tag within the SVG element
-        image_element = profile_picture_element.find_element(By.TAG_NAME, "image")
+            # Find the image tag within the SVG element
+            image_element = profile_picture_element.find_element(By.TAG_NAME, "image")
 
-        # Extract the value of the xlink:href attribute
-        profile_picture_url = image_element.get_attribute("xlink:href")
-    except Exception as e:
-        print(f"Error while getting profile picture: {e}")
+            # Extract the value of the xlink:href attribute
+            profile_picture_url = image_element.get_attribute("xlink:href")
+        except Exception as e:
+            print(f"Error while getting profile picture: {e}")
 
-    """ # FOLLOWERS AND FOLLOWING COUNT
-    try:
-        # Find the element containing the friend count
-        friend_count_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//a[contains(@class, 'x1i10hfl.xjbqb8w.x1ejq31n.xd10rxx.x1sy0etr.x17r0tee.x972fbf')]"))
-        )
-
-        # Extract the text content of the element
-        friend_count_text = friend_count_element.text
-
-        # Split the text to extract the numerical value of the friend count
-        # friend_count = friend_count_text.split()[0]
-
-        # print("Friend count:", friend_count)
-    except Exception as e:
-        print(f"Error while getting friend count: {e}")
-    """
     # BIO
     try:
         # Wait until the bio element is visible
@@ -117,26 +101,7 @@ def scrapePersonFromFacebook(baseUser, driver):
         with open(following_file_path, "w", encoding="utf-8") as file:
             file.write(html_code)
 
-        """ # Extract the list of friends
-        following_elements = following_field.find_element(By.CLASS_NAME, "x78zum5.x1q0g3np.x1a02dak.x1qughib")
-        
-        following_table = following_elements.find_elements(By.TAG_NAME, "div")
-
-        following_temp = []
-        for element in following_table:
-            # Wait for the <a> element to be clickable
-            link_element = WebDriverWait(element, 10).until(
-                EC.element_to_be_clickable((By.TAG_NAME, "a"))
-            )
-            link = link_element.get_attribute("href")
-            print("link= ", link)
-            following_username = link.split('/')[1]
-            following_temp.append(following_username)
-
-        following = following_temp
-        print(following) """
-
     except Exception as e:
         print(f"Error while getting followers: {e}")
     
-    return Person(name, username, profile_picture_url, bio, followers_count, following_count)
+    return Person(name, username, profile_picture_url, bio, followers_count, following_count, "facebook")

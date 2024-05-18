@@ -3,7 +3,7 @@ from Person import Person
 
 def scrape_profile_page(file_path: str):
     username = None
-    profile_picture_url = None
+    profile_picture_url = ""
     name = None
     bio = None
     followers_count = -1
@@ -18,15 +18,15 @@ def scrape_profile_page(file_path: str):
         # Parse the HTML code using BeautifulSoup
         soup = BeautifulSoup(html_code, "html.parser")
 
-        # Find the <img> tag with "profile picture" in its alt attribute
-        img_tag = soup.find('img', alt=lambda alt: alt and 'profile picture' in alt)
-
         # USERNAME
         # Extract the username
         username_element = soup.find('h2', class_='x1lliihq')
 
         # Extract the text of the h2 element
         username = username_element.text.strip()
+
+        # Find the <img> tag with "profile picture" in its alt attribute
+        img_tag = soup.find('img', alt=lambda alt: alt and f"{username}'s profile picture" in alt)
 
         # BIO
         # Extract the bio
@@ -79,7 +79,7 @@ def scrape_profile_page(file_path: str):
         else:
             print("No <img> tag with 'profile picture' in its alt attribute found.")
         
-        return Person(name, username, profile_picture_url, bio, followers_count, following_count)
+        return Person(name, username, profile_picture_url, bio, followers_count, following_count, "instagram")
     except Exception as e:
         print(f"Error while scraping the profile page: {e}")
         return None
@@ -114,6 +114,7 @@ def scrapeFollowers(file_path):
 def scrapeFollowings(file_path):
     # Init an array of followings
     followings = []
+    urls = []
     try:
         # Scrape the followings html page
         with open(file_path, "r", encoding="utf-8") as file:
@@ -125,12 +126,19 @@ def scrapeFollowings(file_path):
         # Find the div element that contains the followings
         followings_section = soup.find_all('div', class_='x1iyjqo2 x1pi30zi')
 
-        for following in followings_section:
-            # Extract the username
-            username = following.a.get('href').split("/")[-1]
-            followings.append(username)
+        # Find all img elements with the specified class
+        image_section = soup.find_all('img', class_='x1lq5wgf xgqcy7u x30kzoy x9jhf4c x9f619 xl1xv1r')
 
-        return followings
+        for following, image in zip(followings_section, image_section):
+            # Extract the username
+            username = following.a.get('href').split("https://www.facebook.com/")[-1]
+            image_url = image.get('src')
+            followings.append(username)
+            urls.append(image_url)
+
+        return urls, followings
     except Exception as e:
         print(f"Error scraping followings: {e}")
-        return followings
+        return urls, followings
+    
+scrape_profile_page(f"pages/emre.karaatas.html")
